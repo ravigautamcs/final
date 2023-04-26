@@ -1,0 +1,19 @@
+clear;
+clc;
+
+G = [[1, 1, 0, 0, 1, 0, 1]; [0, 1, 1, 1, 1, 0, 0]; [1, 1, 1, 0, 0, 1, 1]];
+
+sz = size(G);
+k = sz(1);
+n = sz(2);
+rangeM = 2^k - 1;
+
+M = 0:rangeM;
+M = de2bi(M, 'left-msb');
+codeword = [];
+
+for i=1:size(M)
+ codeword = [codeword; mod(M(i,1:k)*G, 2)];
+end
+
+codeword

@@ -1,0 +1,30 @@
+clear;
+close all;
+
+N=10000;
+f=1;
+Fs=1000;
+t=(0:N-1)/Fs;
+x=sin(2*pi*f*t);
+n=2:20;
+b=log2(n);
+Delta=2./(n-1);
+SQNR=zeros(length(n),1);
+
+for i=1:length(n)
+    q=zeros(size(x));
+    v=(-(n(i)-1)/2:1:(n(i)-1)/2)*Delta(i);
+    for j=1:N
+        [val,index]=min(abs(x(j)-v));
+        q(j)=v(index);
+    end
+    noise=x-q;
+    signal_power=sum(x.^2)/N;
+    noise_power=sum(noise.^2)/N;
+    SQNR(i)=10*log10(signal_power/noise_power);
+end
+figure;
+plot(b,SQNR, 'b-o');
+xlabel('Quantization error');
+ylabel('Signal to Quantization Noise Ratio(dB)');
+grid on;

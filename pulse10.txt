@@ -1,0 +1,15 @@
+syms t w;
+x=1;
+expw = exp(-j*w*t);
+z = int(x*expw, t, -5, 5);
+z = simplify(z);
+
+subplot(2,1,1);
+fplot('1', [-5, 5]);
+axis([-5 5 -0.1 1.5]);
+title('pulse, width = 10');
+
+subplot(2,1,2);
+fplot(z);
+axis([-6 6 -3 11]);
+title('spectrum of pulse');
